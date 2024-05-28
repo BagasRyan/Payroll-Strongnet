@@ -2,55 +2,69 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
-    <!-- Link to Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Link to SweetAlert2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Strong net | Log in</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+
+    <!-- Link CDNJS SweetAlert -->
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <link href="{{ asset('dist/css/styles.css') }}" rel="stylesheet">
 </head>
 
-<body class="bg-dark d-flex justify-content-center align-items-center vh-100">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-4">
-                @if(session('gagal'))
-                <p class="m-2 p-3 text-center bg-danger text-light">{{ session('gagal') }}</p>
-                @endif
-                <div class="card text-light bg-dark">
-                    <div class="card-header bg-dark text-center">
-                        <h2>Login</h2>
-                    </div>
-                    <div class="card-body">
-                        <form action="{{ route('login.store') }}" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <label for="email" class="text-light">Email:</label>
-                                <input type="email" id="email" name="email" class="form-control bg-dark text-light"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-light">Password:</label>
-                                <input type="password" id="password" name="password"
-                                    class="form-control bg-dark text-light" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </form>
-                    </div>
+<body class="bg-dark">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="row">
+            @if(session('gagal'))
+            <p class="bg-danger p-2">{{ session('gagal') }}</p>
+            @endif
+            <h2 class="text-center">Login</h2>
+            <div class="col-lg-6 col-md-6 p-5">
+                <div class="login-logo m-2">
+                    <img src="{{ asset('images/strongnet2.png') }}" alt="AdminLTE Logo" width="375" height="175"
+                        style="opacity: .8">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 p-5">
+                <div class="card-body">
+                    <form action="{{ route('login.store') }}" method="POST">
+                        @csrf
+                        <div class="form-floating mb-3">
+                            <input class="form-control bg-dark text-light" name="email" id="inputEmail" type="email"
+                                placeholder="" />
+                            <label for="inputEmail">Email</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control bg-dark text-light" id="inputPassword" name="password"
+                                type="password" placeholder="Password" />
+                            <label for="inputPassword">Password</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4 mb-0 w-100">Login</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Link to Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Link to SweetAlert2 JS -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.11.0/dist/sweetalert2.all.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    @if(session('logout'))
+
+    <!-- jQuery -->
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('dist/js/adminlte.min.js')}}"></script>
+    <!-- @if(session('logout'))
     <script>
     const Toast = Swal.mixin({
         toast: true,
@@ -68,7 +82,7 @@
         title: `{{ session('logout') }}`
     });
     </script>
-    @endif
+    @endif -->
 </body>
 
 </html>

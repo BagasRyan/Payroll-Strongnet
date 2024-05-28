@@ -33,6 +33,8 @@
                             <label class="form-label">Data Diri Karyawan</label>
                             <div class="form-group">
 
+
+                                <input type="hidden" name="idTanggal" value="{{ $idTanggal }}">
                                 <input type="hidden" name="tahun" value="{{ $tahun }}">
                                 <input type="hidden" name="bulan" value="{{ $bulan }}">
 
@@ -55,24 +57,24 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <label class="form-label mt-3" for="nama">Total Telat 10 Menit</label>
-                                        <input type="number" class="form-control" name="terlambat10" id="nama">
+                                        <input type="number" class="form-control" min="0" value="0" name="terlambat10" id="nama">
                                         <label class="form-label mt-3" for="nama">Total Telat 20 Menit</label>
-                                        <input type="number" class="form-control" name="terlambat20" id="nama">
+                                        <input type="number" class="form-control" min="0" value="0" name="terlambat20" id="nama">
                                         <label class="form-label mt-3" for="nama">Total Telat 30 Menit</label>
-                                        <input type="number" class="form-control" name="terlambat30" id="nama">
+                                        <input type="number" class="form-control" min="0" value="0" name="terlambat30" id="nama">
                                         <label class="form-label mt-3" for="nama">Total Telat Lebih Dari 30
                                             Menit</label>
-                                        <input type="number" class="form-control" name="terlambatLebih30" id="nama">
+                                        <input type="number" class="form-control" min="0" value="0" name="terlambatLebih30" id="nama">
                                     </div>
                                     <div class="col-6">
                                         <label class="form-label mt-3" for="nama">Pulang Lebih Awal</label>
-                                        <input type="number" class="form-control" name="pulangLebihAwal" id="nama">
+                                        <input type="number" class="form-control" min='0' value="0" name="pulangLebihAwal" id="nama">
                                         <label class="form-label mt-3" for="nama">Tidak Masuk</label>
-                                        <input type="number" class="form-control" name="tidakMasuk" id="nama">
+                                        <input type="number" class="form-control" min="0" value="0" name="tidakMasuk" id="nama">
                                         <label class="form-label mt-3" for="nama">Izin Tidak Hadir</label>
-                                        <input type="number" class="form-control" name="izin" id="nama">
+                                        <input type="number" class="form-control" min="0" value="0" name="izin" id="nama">
                                         <label class="form-label mt-3" for="nama">Sakit</label>
-                                        <input type="number" class="form-control" name="sakit" id="nama">
+                                        <input type="number" class="form-control" min="0" value="0" name="sakit" id="nama">
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mt-3">Submit</button>

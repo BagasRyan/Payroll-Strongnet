@@ -4,11 +4,10 @@ $(document).ready(function(){
     const idTanggal = query.substring(query.lastIndexOf("/") + 1);
     $('#table').DataTable({
         language    : {
-            zeroRecords     : 'Tidak ada data yang bisa ditampilkan, silahkan masukan beberapa data..',
+            zeroRecords     : 'Data masih kosong',
         },
         processing: true,
         serverSide: true,
-        responsive: true,
         ajax: {
             url: `/gajiBulanan/detail/${idTanggal}`
         },
@@ -27,20 +26,16 @@ $(document).ready(function(){
                 name: 'divisi',
             },
             {
-                data: 'tahun',
-                name: 'tahun',
-            },
-            {
-                data: 'bulan',
-                name: 'bulan',
-            },
-            {
                 data: 'gaji_pokok',
                 name: 'gaji_pokok',
             },
             {
                 data: 'potongan',
                 name: 'potongan',
+            },
+            {
+                data: 'option',
+                name: 'option'
             }
         ]
     });

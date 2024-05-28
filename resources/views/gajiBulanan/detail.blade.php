@@ -26,10 +26,9 @@
                     <th>No</th>
                     <th>Nama Karyawan</th>
                     <th>Divisi</th>
-                    <th>Tahun</th>
-                    <th>Bulan</th>
                     <th>Gaji Pokok</th>
                     <th>Potongan Gaji</th>
+                    <th>Opsi</th>
                 </tr>
             </thead>
         </table>
@@ -37,12 +36,11 @@
 </section>
 @endsection
 @push('script')
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap.min.js"></script> -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="{{asset('/plugins/datatables/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('/plugins/datatables/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('/plugins/datatables/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('js/gajiBulanan.js') }}"></script>
 @push('script')
 

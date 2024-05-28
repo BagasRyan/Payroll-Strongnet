@@ -2,7 +2,6 @@ $(document).ready(function() {
     $('#table').DataTable({
         processing: true,
         serverSide: true,
-        responsive: true,
         ajax: {
             url: '/karyawan'
         },

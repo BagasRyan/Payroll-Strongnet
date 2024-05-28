@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::GET('/', 'dashboardController@index')->name('dashboard');
 
 // Auth Controller
 Route::get('/login', 'authController@index')->name('login');
@@ -22,6 +21,10 @@ Route::post('/loginStore', 'authController@login')->name('login.store');
 Route::post('/logout', 'authController@logout')->name('logout');
 
 Route::group(['middleware' => 'auth'], function(){
+
+    // Dashboard Controller
+    Route::GET('/', 'dashboardController@index')->name('dashboard');
+
     // Karyawan Controller
     Route::get('/karyawan', 'KaryawanController@index')->name('karyawan.index');
     Route::get('/karyawan/create', 'KaryawanController@create')->name('karyawan.create');
@@ -45,4 +48,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/gajiBulanan/detail/{idTanggal}', 'GajiBulananController@detail')->name('gaji.bulanan.detail');
     Route::get('/gajiBulanan/createGaji/{idTanggal}', 'GajiBulananController@create')->name('gaji.bulanan.create');
     Route::post('/gajiBulanan/store', 'GajiBulananController@store')->name('gaji.bulanan.store');
+    Route::get('/gajiBulanan/detailKaryawan/{idKaryawan}/{idTanggal}', 'GajiBulananController@detailKaryawan')->name('gaji.bulanan.detail.karyawan');
 });
