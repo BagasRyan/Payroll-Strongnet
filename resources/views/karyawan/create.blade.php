@@ -41,6 +41,8 @@
                                 </select>
                                 <label class="form-label mt-3" for="nama">Email</label>
                                 <input type="email" class="form-control" name="email" id="nama">
+                                <label class="form-label mt-3" for="nama">No Telepon</label>
+                                <input type="text" class="form-control" name="no_telp" id="nama">
                                 <label class="form-label mt-3" for="nama">Alamat</label>
                                 <input type="text" class="form-control" name="alamat" id="nama">
                                 <label class="form-label mt-3" for="nama">Gaji Pokok</label>

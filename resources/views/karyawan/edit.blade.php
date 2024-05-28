@@ -41,6 +41,8 @@
                                 </select>
                                 <label class="form-label mt-3" for="nama">Email</label>
                                 <input type="email" class="form-control" value="{{ $karyawan->email }}" name="email" id="nama">
+                                <label class="form-label mt-3" for="nama">No Telepon</label>
+                                <input type="text" class="form-control" value="{{ $karyawan->no_telepon }}" name="no_telp" id="nama">
                                 <label class="form-label mt-3" for="nama">Alamat</label>
                                 <textarea class="form-control" name="alamat">{{ $karyawan->alamat }}</textarea>
                                 <label class="form-label mt-3" for="nama">Gaji Pokok</label>

@@ -59,6 +59,7 @@ class KaryawanController extends Controller
             'id_divisi' => $request->idDivisi,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telp,
             'email' => $request->email,
             'gaji_pokok' => $request->gajiPokok
         ]);
@@ -80,6 +81,7 @@ class KaryawanController extends Controller
             'id_divisi' => $request->idDivisi,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telp,
             'email' => $request->email,
             'gaji_pokok' => $request->gajiPokok
         ]);

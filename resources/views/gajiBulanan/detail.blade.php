@@ -19,6 +19,7 @@
 <!-- /.content-header -->
 <section class="content">
     <div class="container-fluid">
+        <a href="{{ route('gaji.bulanan.index') }}" class="btn btn-primary btn-sm">Kembali</a>
         <a href="{{ route('gaji.bulanan.create', $idTanggal) }}" class="btn btn-primary btn-sm m-2">Tambah Data</a>
         <table id="table" class="table table-hover">
             <thead>
@@ -42,7 +43,6 @@
 <script src="{{asset('/plugins/datatables/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{asset('/plugins/datatables/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('js/gajiBulanan.js') }}"></script>
-@push('script')
 
 @if(session('tambah'))
 <script>
@@ -68,5 +68,4 @@ Swal.fire({
 </script>
 @endif
 
-@endpush
 @endpush

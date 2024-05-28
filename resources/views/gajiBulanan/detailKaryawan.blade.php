@@ -45,10 +45,10 @@
                         <tr><td><h5>Total Tidak Hadir dalam 1 Bulan : {{ $tidakHadir }} Hari</h5></td></tr>
                     </table>
                     <hr>
-                    <h4>Gaji Pokok: Rp. 2.000.000</h4>
-                    <h4>Potongan : Rp. 2.000.000</h4>
+                    <h4>Gaji Pokok: Rp. {{ $gajiKaryawan }}</h4>
+                    <h4>Potongan : Rp. {{ $potonganGaji }}</h4>
                     <hr>
-                    <h4>Gaji Diterima: 2.000.000</h4>
+                    <h4>Gaji Diterima: {{ $totalGaji }}</h4>
                 </div>
             </div>
         </div>

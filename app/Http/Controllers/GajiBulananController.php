@@ -13,6 +13,9 @@ class GajiBulananController extends Controller
     public function index(){
 
         $tanggal = DB::table('tanggal')->get();
+        // $dataBulanan = DB::table('data_bulanan')->get();
+
+        // dd($dataBulanan);
 
         return view('gajiBulanan.index', compact('tanggal'));
     }
@@ -50,7 +53,7 @@ class GajiBulananController extends Controller
              // AMBIL ID TANGGAL DARI URL
              $idTanggal = $id;
              
-            $dataGajiBulanan = DB::table('gaji_bulanan')->get();
+            $dataGajiBulanan = DB::table('gaji_bulanan')->where('id_tanggal', $idTanggal)->get();
             $data = [];
 
             foreach($dataGajiBulanan as $gaji){
@@ -58,8 +61,8 @@ class GajiBulananController extends Controller
                 $divisi = DB::table('divisi')->where('id', $gaji->id_divisi)->value('nama');
 
                 $data[] = [
-                    
-                    'id' => $gaji->id_karyawan,
+                    'id' => $gaji->id,
+                    'idKaryawan' => $gaji->id_karyawan,
                     'nama' => $nama,
                     'divisi' => $divisi,
                     'gaji_pokok' => $gaji->gaji_pokok,
@@ -69,12 +72,13 @@ class GajiBulananController extends Controller
             }
 
 
-
             return Datatables::of($data)
             ->addIndexColumn()
             ->addColumn('option', function($data){
                 return '
-                <a href="'.route('gaji.bulanan.detail.karyawan', [$data['id'], $data['id_tanggal']]).'" class="btn btn-success btn-sm">Detail</a>
+                <a href="'.route('gaji.bulanan.detail.karyawan', [$data['idKaryawan'], $data['id_tanggal']]).'" class="btn btn-success btn-sm">Detail</a>
+                <a href="'.route('gaji.bulanan.edit.karyawan', $data['id_tanggal']).'" class="btn btn-sm btn-warning">Edit</a>
+                <button onClick="onDelete(this)" id="'.$data['id'].'" class="btn btn-sm btn-danger">Hapus</button>
                 ';
             })
             ->rawColumns(['option'])
@@ -164,9 +168,20 @@ class GajiBulananController extends Controller
         DB::beginTransaction();
 
         try {
+
+            $gajiBulananId = DB::table('gaji_bulanan')->insertGetId([
+                'id_karyawan' => $request->idKaryawan,
+                'id_divisi' => $request->idDivisi,
+                'id_tanggal' => $idTanggal,
+                'tahun' => $request->tahun,
+                'bulan' => $request->bulan,
+                'gaji_pokok' => $request->gajiPokok,
+                'potongan' => $totalPotongan
+            ]);
     
             DB::table('absensi_karyawan')->insert([
                 'id_karyawan' => $request->idKaryawan,
+                'id_gaji_bulanan' => $gajiBulananId,
                 'nama' => $namaKaryawan,
                 'divisi' => $divisi,
                 'tahun' => $request->tahun,
@@ -181,13 +196,13 @@ class GajiBulananController extends Controller
                 'sakit' => $request->sakit
             ]);
 
-            DB::table('gaji_bulanan')->insert([
-                'id_karyawan' => $request->idKaryawan,
-                'id_divisi' => $request->idDivisi,
-                'tahun' => $request->tahun,
-                'bulan' => $request->bulan,
-                'gaji_pokok' => $request->gajiPokok,
-                'potongan' => $totalPotongan
+            $totalKaryawan = DB::table('gaji_bulanan')->where('id_tanggal', $idTanggal)->count('id_karyawan');
+            $totalPengeluaran = DB::table('gaji_bulanan')->where('id_tanggal', $idTanggal)->sum('gaji_pokok');
+
+
+            DB::table('tanggal')->where('id', $idTanggal)->update([
+                'total_karyawan' => $totalKaryawan,
+                'total_pengeluaran' => $totalPengeluaran
             ]);
 
             DB::commit();
@@ -223,9 +238,90 @@ class GajiBulananController extends Controller
                         ->where('tahun', $tahun)
                         ->first();
 
+        // AMBIL DATA GAJI KARYAWAN
+        $gajiKaryawan = DB::table('gaji_bulanan')->where('id_karyawan', $idKaryawan)->where('tahun', $tahun)->where('bulan', $bulan)->value('gaji_pokok');
+        $potonganGaji = DB::table('gaji_bulanan')->where('id_karyawan', $idKaryawan)->where('tahun', $tahun)->where('bulan', $bulan)->value('potongan');
+        $totalGaji = $gajiKaryawan - $potonganGaji;
+
         $tidakHadir = $dataKaryawan->tidak_hadir + $dataKaryawan->izin + $dataKaryawan->sakit;
         // dd($totalTidakHadir);
 
-        return view('gajiBulanan.detailKaryawan', compact('totalHari', 'dataKaryawan', 'tidakHadir'));
+        return view('gajiBulanan.detailKaryawan', compact('totalHari', 'dataKaryawan', 'tidakHadir', 'gajiKaryawan', 'potonganGaji', 'totalGaji'));
+    }
+
+
+    public function delete($idTanggal){
+        $bulan = DB::table('tanggal')->where('id', $idTanggal)->value('bulan');
+        $tahun = DB::table('tanggal')->where('id', $idTanggal)->value('tahun');
+
+        DB::beginTransaction();
+        try {
+
+        DB::table('tanggal')->where('id', $idTanggal)->delete();
+        DB::table('gaji_bulanan')->where('id_tanggal', $idTanggal)->delete();
+        DB::table('absensi_karyawan')->where('bulan', $bulan)->where('tahun', $tahun)->delete();
+
+        DB::commit();
+
+        return redirect()->route('gaji.bulanan.index')->with('hapus', 'Data berhasil ditambahkan');
+        } catch(\Exception $e){
+            DB::rollback();
+
+            return redirect()->back();
+        }
+    }
+
+    public function edit($idTanggal){
+        $dataKaryawan = DB::table('karyawan')->get();
+        $dataDivisi = DB::table('divisi')->get();
+        $bulan = DB::table('tanggal')->where('id', $idTanggal)->value('bulan');
+        $tahun = DB::table('tanggal')->where('id', $idTanggal)->value('tahun');
+        $gajiPokok = DB::table('gaji_bulanan')->where('id_tanggal', $idTanggal)->value('gaji_pokok');
+        $karyawan = DB::table('absensi_karyawan')->where('bulan', $bulan)->where('tahun', $tahun)->first();
+        // dd($karyawan);
+
+        return view('gajiBulanan.edit', compact('dataKaryawan', 'dataDivisi', 'karyawan', 'gajiPokok', 'idTanggal'));
+    }
+
+    public function update(Request $request){
+
+        $id = $request->id;
+        $idTanggal = $request->idTanggal;
+
+        DB::table('absensi_karyawan')->where('id', $id)->update([
+            'nama' =>  $request->nama,
+            'divisi' => $request->divisi,
+            'telat_10_menit' => $request->terlambat10,
+            'telat_20_menit' => $request->terlambat20,
+            'telat_30_menit' => $request->terlambat30,
+            'telat_lebih_dari_30_menit' => $request->terlambatLebih30,
+            'pulang_lebih_awal' => $request->pulangLebihAwal,
+            'tidak_hadir' => $request->tidakHadir,
+            'izin' => $request->izin,
+            'sakit' => $request->sakit
+        ]);
+
+        return redirect()->route('gaji.bulanan.detail', $idTanggal)->with('update', 'Data berhasil diedit');
+    }
+
+    public function deleteKaryawan($id){
+
+        $idTanggal = DB::table('gaji_bulanan')->where('id', $id)->value('id_tanggal');
+
+        DB::beginTransaction();
+        try {
+
+        DB::table('absensi_karyawan')->where('id_gaji_bulanan', $id)->delete();
+        DB::table('gaji_bulanan')->where('id', $id)->delete();
+
+        DB::commit();
+
+        return redirect()->route('gaji.bulanan.detail', $idTanggal)->with('hapus', 'Data berhasil dihapus');
+
+        } catch(\Exception $e){
+            DB::rollback();
+
+            return redirect()->back();
+        }
     }
 }
