@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class KaryawanMigration extends Migration
+class GajiBulananMigration extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class KaryawanMigration extends Migration
      */
     public function up()
     {
-        Schema::create('karyawan', function(Blueprint $table){
+        Schema::create('gaji_bulanan', function(Blueprint $table){
             $table->id();
+            $table->integer('id_karyawan');
             $table->integer('id_divisi');
-            $table->string('nama');
-            $table->text('alamat');
-            $table->integer('no_telepon');
-            $table->string('email');
+            $table->integer('id_tanggal');
+            $table->integer('tahun');
+            $table->string('bulan');
             $table->string('gaji_pokok');
+            $table->string('potongan');
             $table->timestamp('created_at');
         });
     }
