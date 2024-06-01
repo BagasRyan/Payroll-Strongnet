@@ -14,6 +14,7 @@ $(document).ready(function(){
             {
                 data: 'nama',
                 name: 'nama',
+                width: '10%'
             },
             {
                 data: 'option',

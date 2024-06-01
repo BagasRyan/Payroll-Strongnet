@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/gajiBulanan/createGaji/{idTanggal}', 'GajiBulananController@create')->name('gaji.bulanan.create');
     Route::post('/gajiBulanan/store', 'GajiBulananController@store')->name('gaji.bulanan.store');
     Route::get('/gajiBulanan/detailKaryawan/{idKaryawan}/{idTanggal}', 'GajiBulananController@detailKaryawan')->name('gaji.bulanan.detail.karyawan');
-    Route::get('/gajiBulanan/edit/{idTanggal}', 'GajiBulananController@edit')->name('gaji.bulanan.edit.karyawan');
+    Route::get('/gajiBulanan/edit/{idKaryawan}/{idTanggal}', 'GajiBulananController@edit')->name('gaji.bulanan.edit.karyawan');
     Route::post('/gajiBulanan/update', 'GajiBulananController@update')->name('gaji.bulanan.update');
     Route::post('/gajiBulanan/delete/karyawan/{id}', 'GajiBulananController@deleteKaryawan')->name('gaji.bulanan.delete.karyawan');
 });

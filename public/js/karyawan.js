@@ -16,6 +16,14 @@ $(document).ready(function() {
                 name: 'nama',
             },
             {
+                data: 'alamat',
+                name: 'alamat'
+            },
+            {
+                data: 'no_telepon',
+                name: 'no_telepon'
+            },
+            {
                 data: 'option',
                 name: 'option',
             }

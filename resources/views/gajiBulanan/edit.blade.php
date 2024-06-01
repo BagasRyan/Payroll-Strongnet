@@ -32,7 +32,7 @@
                             @csrf
                             <label class="form-label">Data Diri Karyawan</label>
                             <div class="form-group">
-                                <input type="hidden" name="id" value="{{ $karyawan->id }}">
+                                <input type="hidden" name="id" value="{{ $karyawan->id_karyawan }}">
                                 <input type="hidden" name="idTanggal" value="{{ $idTanggal }}">
                                 <label class="form-label mt-3" for="nama">Nama</label>
                                 <select class="form-control" name="nama">
@@ -55,7 +55,7 @@
                                     @endforeach
                                 </select>
                                 <label class="form-label mt-3" for="nama">Gaji Pokok</label>
-                                <input type="text" class="form-control" value="{{ $gajiPokok }}" name="gajiPokok" id="nama">
+                                <input type="text" class="form-control" value="{{ $gajiPokok }}" onkeyup="formatCurrency(this)" name="gajiPokok" id="nama">
                                 <hr>
                                 <label class="form-label">Pemotongan Gaji</label>
                                 <div class="row">
@@ -90,3 +90,17 @@
     </div>
 </section>
 @endsection
+@push('script')
+<script>
+function formatCurrency(input) {
+    // Mengambil nilai inputan tanpa tanda titik
+    var value = input.value.replace(/\./g, '');
+
+    // Format dengan menambahkan titik setiap 3 digit dari belakang
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    // Memasukkan nilai yang sudah diformat kembali ke input
+    input.value = value;
+}
+</script>
+@endpush

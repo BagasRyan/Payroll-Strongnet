@@ -51,7 +51,7 @@
                                     @endforeach
                                 </select>
                                 <label class="form-label mt-3" for="nama">Gaji Pokok</label>
-                                <input type="text" class="form-control" name="gajiPokok" id="nama">
+                                <input type="text" class="form-control" onkeyup="formatCurrency(this)" name="gajiPokok" id="nama">
                                 <hr>
                                 <label class="form-label">Pemotongan Gaji</label>
                                 <div class="row">
@@ -86,3 +86,17 @@
     </div>
 </section>
 @endsection
+@push('script')
+<script>
+function formatCurrency(input) {
+    // Mengambil nilai inputan tanpa tanda titik
+    var value = input.value.replace(/\./g, '');
+
+    // Format dengan menambahkan titik setiap 3 digit dari belakang
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+    // Memasukkan nilai yang sudah diformat kembali ke input
+    input.value = value;
+}
+</script>
+@endpush

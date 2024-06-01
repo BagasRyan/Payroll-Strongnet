@@ -18,9 +18,9 @@
 </div>
 <!-- /.content-header -->
 <section class="content">
-    <a href="{{ route('gaji.bulanan.create.tanggal') }}" class="btn btn-sm btn-primary">Buat Gaji Bulanan Baru</a>
+    <a href="{{ route('gaji.bulanan.create.tanggal') }}" class="btn btn-sm btn-primary m-2">Buat Gaji Bulanan Baru</a>
     <div class="container-fluid row">
-        @forelse($tanggal as $data)
+        <!-- @forelse($tanggal as $data)
         <div class="card mt-4 m-2 col-4" style="width: 18rem;">
             <div class="card-body">
                 <h3>{{ $data->tahun }}</h3>
@@ -45,18 +45,39 @@
                 </div>
             </div>
         </div>
-        @endforelse
+        @endforelse -->
+        <div class="card">
+            <div class="card-body">
+                <table id="table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Jumlah Karyawan</th>
+                            <th>Total Pengeluaran</th>
+                            <th>Tahun</th>
+                            <th>Bulan</th>
+                            <th>Opsi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 </section>
 @endsection
 @push('script')
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="{{asset('/plugins/datatables/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('/plugins/datatables/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('/plugins/datatables/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 <script src="{{ asset('js/tanggalGajian.js') }}"></script>
 @endpush
-@if(session('tambah'))
+@if(session('tambahTanggal'))
 <script>
 Swal.fire({
     title: 'Berhasil',
-    text: `{{ session('tambah') }}`,
+    text: `{{ session('tambahTanggal') }}`,
     icon: 'success',
     showConfirmButton: false,
     timer: 1500
@@ -78,12 +99,12 @@ Swal.fire({
 
 @if(session('update'))
 <script>
-    Swal.fire({
-        title: 'Berhasil',
-        text: `{{ session('update') }}`,
-        icon: 'success',
-        showConfirmButton: false,
-        timer: 1500
-    });
+Swal.fire({
+    title: 'Berhasil',
+    text: `{{ session('update') }}`,
+    icon: 'success',
+    showConfirmButton: false,
+    timer: 1500
+});
 </script>
 @endif

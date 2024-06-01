@@ -20,15 +20,19 @@
 <section class="content">
     <div class="container-fluid">
         <a href="{{ route('divisi.create') }}" class="btn btn-primary btn-sm m-2">Tambah Data</a>
-        <table id="table" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Opsi</th>
-                </tr>
-            </thead>
-        </table>
+        <div class="card">
+            <div class="card-body">
+            <table id="table" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        </div>
     </div>
 </section>
 @endsection

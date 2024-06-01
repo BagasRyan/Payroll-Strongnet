@@ -28,10 +28,16 @@ $(document).ready(function(){
             {
                 data: 'gaji_pokok',
                 name: 'gaji_pokok',
+                render: function(data){
+                    return 'Rp. ' + data
+                }
             },
             {
                 data: 'potongan',
                 name: 'potongan',
+                render: function(data){
+                    return 'Rp. ' + data
+                }
             },
             {
                 data: 'option',

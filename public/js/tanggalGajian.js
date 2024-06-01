@@ -1,3 +1,43 @@
+$(document).ready(function(){
+    $('#table').DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {
+            url: '/gajiBulanan' 
+        },
+        columns: [{
+            render: function(data, type, row, meta) {
+                return meta.row + meta.settings._iDisplayStart + 1;
+            },
+        },
+        {
+            data: 'total_karyawan',
+            name: 'total_karyawan',
+        },
+        {
+            data: 'total_pengeluaran',
+            name: 'total_pengeluaran',
+            render: function(data){
+                return 'Rp. ' + data
+            }
+        },
+        {
+            data: 'tahun',
+            name: 'tahun',
+        },
+        {
+            data: 'bulan',
+            name: 'bulan',
+        },
+        {
+            data: 'option',
+            name: 'option',
+        }
+    ]
+    })
+});
+
 function onDelete(data){
     const CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
     const idTanggal = data.id;

@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Detail Gaji {{ $tahun }} {{ $bulan }}</h1>
+                <h1 class="m-0">Detail Gaji {{ $bulan }} {{ $tahun }}</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
         <hr>
@@ -21,18 +21,22 @@
     <div class="container-fluid">
         <a href="{{ route('gaji.bulanan.index') }}" class="btn btn-primary btn-sm">Kembali</a>
         <a href="{{ route('gaji.bulanan.create', $idTanggal) }}" class="btn btn-primary btn-sm m-2">Tambah Data</a>
-        <table id="table" class="table table-hover">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Karyawan</th>
-                    <th>Divisi</th>
-                    <th>Gaji Pokok</th>
-                    <th>Potongan Gaji</th>
-                    <th>Opsi</th>
-                </tr>
-            </thead>
-        </table>
+        <div class="card">
+            <div class="card-body">
+                <table id="table" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Karyawan</th>
+                            <th>Divisi</th>
+                            <th>Gaji Pokok</th>
+                            <th>Potongan Gaji</th>
+                            <th>Opsi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 </section>
 @endsection

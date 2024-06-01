@@ -43,19 +43,19 @@
           </li>
           <li class="nav-item menu-open">
             <a href="{{ route('karyawan.index') }}" class="nav-link bg-transparent">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>Karyawan</p>
             </a>
           </li>
           <li class="nav-item menu-open">
             <a href="{{ route('divisi.index') }}" class="nav-link bg-transparent">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>Divisi Karyawan</p>
             </a>
           </li>
           <li class="nav-item menu-open">
             <a href="{{ route('gaji.bulanan.index') }}" class="nav-link bg-transparent">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-user"></i>
               <p>Gaji Bulanan</p>
             </a>
           </li>
